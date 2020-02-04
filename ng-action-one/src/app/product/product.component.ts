@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
         "硬件设备",
         "外设产品"
       ]),
-      new Product(2, "第二个商品", 2.78, 2, "这是商品的描述，第二个商品", [
+      new Product(2, "第二个商品", 2.78, 2.5, "这是商品的描述，第二个商品", [
         "硬件设备"
       ]),
       new Product(3, "第三个商品", 3.78, 3, "这是商品的描述，第三个商品", [
