@@ -6,6 +6,9 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { ProductDescComponent } from "./product-desc/product-desc.component";
 import { SellerInfoComponent } from "./seller-info/seller-info.component";
 import { FeedsComponent } from "./feeds/feeds.component";
+import { LoginGuardGuard } from "./guard/login-guard.guard";
+import { UnsavedGuardGuard } from "./guard/unsaved-guard.guard";
+import { ProductResolve } from "./service/product.resolve";
 
 const routes: Routes = [
   {
@@ -15,7 +18,12 @@ const routes: Routes = [
     children: [
       { path: "", component: ProductDescComponent },
       { path: "seller/:id", component: SellerInfoComponent }
-    ]
+    ],
+    // canActivate: [LoginGuardGuard],
+    // canDeactivate: [UnsavedGuardGuard],
+    resolve: {
+      product: ProductResolve
+    }
   },
   {
     path: "feeds",
@@ -40,6 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [LoginGuardGuard, UnsavedGuardGuard, ProductResolve]
 })
 export class AppRoutingModule {}

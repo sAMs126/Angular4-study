@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from "@angular/core";
+import { CanActivate } from "@angular/router";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class LoginGuardGuard implements CanActivate {
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return true;
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    let loggedIn: boolean = Math.random() < 0.5;
+    if (!loggedIn) {
+      console.log("用户未登录！");
+    }
+    return loggedIn;
   }
 }
