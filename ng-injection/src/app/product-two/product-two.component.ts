@@ -7,6 +7,7 @@ import { AnotherProductService } from "app/shared/another-product.service";
     selector: "app-product-two",
     templateUrl: "./product-two.component.html",
     styleUrls: ["./product-two.component.css"],
+    // 指明所使用的的提供器
     providers: [
         { provide: ProductService, useClass: AnotherProductService }
     ]
