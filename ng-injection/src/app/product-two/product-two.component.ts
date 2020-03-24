@@ -8,9 +8,9 @@ import { AnotherProductService } from "app/shared/another-product.service";
     templateUrl: "./product-two.component.html",
     styleUrls: ["./product-two.component.css"],
     // 指明所使用的的提供器
-    providers: [
-        { provide: ProductService, useClass: AnotherProductService }
-    ]
+    // providers: [
+    //     { provide: ProductService, useClass: AnotherProductService }
+    // ]
 })
 export class ProductTwoComponent implements OnInit {
     product: Product;
