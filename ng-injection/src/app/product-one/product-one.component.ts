@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { ProductService } from "app/shared/product.service";
+import { Component, Injector, OnInit } from "@angular/core";
 import { Product } from "app/class/product";
+import { ProductService } from "app/shared/product.service";
 
 @Component({
     selector: "app-product-one",
@@ -10,9 +10,14 @@ import { Product } from "app/class/product";
 export class ProductOneComponent implements OnInit {
     product: Product;
 
-    constructor(private productService: ProductService) {
-        this.product = productService.getProduct();
+    // 手动注入
+    private productService: ProductService
+
+    constructor (private injector: Injector) {
+        this.productService = injector.get(ProductService);
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.product = this.productService.getProduct();
+    }
 }
