@@ -12,7 +12,7 @@ export class ProductOneComponent implements OnInit {
 
     // 手动注入
     private productService: ProductService
-
+    // // // // // 强烈不建议使用此种形式 // // // // // 
     constructor (private injector: Injector) {
         this.productService = injector.get(ProductService);
     }
