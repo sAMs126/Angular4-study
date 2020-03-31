@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
 import { AppComponent } from "./app.component";
@@ -14,6 +14,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { HomeComponent } from './home/home.component';
 import { Routes, Router, RouterModule } from "@angular/router";
 import { ProductService } from "./service/product.service";
+import { ProductFilterPipe } from './pipe/product-filter.pipe';
 
 const routes: Routes = [
   {
@@ -36,11 +37,18 @@ const routes: Routes = [
     ProductComponent,
     StarsComponent,
     ProductDetailComponent,
-    HomeComponent
+    HomeComponent,
+    ProductFilterPipe
   ],
-  imports: [BrowserModule, FormsModule, HttpModule,RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule
+  ],
   providers: [ProductService],
   exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

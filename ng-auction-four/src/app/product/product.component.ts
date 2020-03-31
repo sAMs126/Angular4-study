@@ -1,18 +1,31 @@
 import { Component, OnInit } from "@angular/core";
 import { Product } from "../service/class/product";
 import { ProductService } from "app/service/product.service";
+import { FormControl } from "@angular/forms";
+import "rxjs";
 
 @Component({
-    selector: "app-product",
-    templateUrl: "./product.component.html",
-    styleUrls: ["./product.component.css"]
+  selector: "app-product",
+  templateUrl: "./product.component.html",
+  styleUrls: ["./product.component.css"]
 })
 export class ProductComponent implements OnInit {
-    constructor (private productService: ProductService) { }
 
-    products: Array<Product> = [];
+  products: Array<Product> = [];
 
-    ngOnInit() {
-        this.products = this.productService.getProducts();
-    }
+  keyword: string;
+
+  titleFilter: FormControl = new FormControl();
+
+  constructor (private productService: ProductService) {
+    this.titleFilter.valueChanges
+      .debounceTime(500)
+      .subscribe(
+        value => this.keyword = value
+      );
+  }
+
+  ngOnInit() {
+    this.products = this.productService.getProducts();
+  }
 }
