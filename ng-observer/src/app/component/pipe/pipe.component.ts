@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PipeComponent implements OnInit {
 
-  constructor() { }
+  day: Date = new Date();
+
+  pi: number = Math.PI * 1000;
+
+  mul: number = 10;
+
+  constructor () { }
 
   ngOnInit() {
   }
