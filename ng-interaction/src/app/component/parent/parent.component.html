@@ -1,0 +1,8 @@
+<div>
+  父组件👨
+</div>
+<div>
+  <input type="text" placeholder="请输入股票代码" [(ngModel)]="stock">
+  <hr>
+  <app-child [stockCode]="stock" [amount]="100"></app-child>
+</div>
