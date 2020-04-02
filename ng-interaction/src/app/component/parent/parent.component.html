@@ -3,6 +3,13 @@
 </div>
 <div>
   <input type="text" placeholder="请输入股票代码" [(ngModel)]="stock">
+  接收子组件传值：<br>
+  <div>
+    股票代码： {{priceQuote.stockCode}} <br>
+    股票价格： {{priceQuote.lastPrice | number:'2.3-3'}}
+  </div>
   <hr>
   <app-child [stockCode]="stock" [amount]="100"></app-child>
+  <hr>
+  <app-stock-child (priceChange)="priceQuoteHandle($event)"></app-stock-child>
 </div>
