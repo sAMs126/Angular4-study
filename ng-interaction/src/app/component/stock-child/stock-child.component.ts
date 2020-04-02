@@ -14,6 +14,9 @@ export class StockChildComponent implements OnInit {
   @Output("priceChange")
   lastPrice: EventEmitter<PriceQuote> = new EventEmitter();
 
+  @Output("buyStock")
+  buy: EventEmitter<PriceQuote> = new EventEmitter();
+
   constructor () {
     setInterval(() => {
       let priceQuote: PriceQuote =
@@ -24,6 +27,10 @@ export class StockChildComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  buyStock() {
+    this.buy.emit(new PriceQuote(this.stockCode, this.price));
   }
 
 }

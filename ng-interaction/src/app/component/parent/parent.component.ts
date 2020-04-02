@@ -10,15 +10,20 @@ export class ParentComponent implements OnInit {
 
   stock: string = "";
 
-  priceQuote: PriceQuote = new PriceQuote("", 0);
+  priceQuoteShow: PriceQuote = new PriceQuote("", 0);
+
+  priceQuoteOrder: PriceQuote = new PriceQuote("", 0);
 
   constructor () { }
 
   ngOnInit() {
   }
 
-  priceQuoteHandle(event: PriceQuote) {
-    this.priceQuote = event;
+  priceQuoteHandler(event: PriceQuote) {
+    this.priceQuoteShow = event;
   }
 
+  buyHandler(event: PriceQuote) {
+    this.priceQuoteOrder = event;
+  }
 }

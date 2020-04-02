@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { ChildComponent } from './component/child/child.component';
 import { ParentComponent } from './component/parent/parent.component';
 import { StockChildComponent } from './component/stock-child/stock-child.component';
+import { OrderChildComponent } from './component/order-child/order-child.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChildComponent,
     ParentComponent,
-    StockChildComponent
+    StockChildComponent,
+    OrderChildComponent
   ],
   imports: [
     BrowserModule,
