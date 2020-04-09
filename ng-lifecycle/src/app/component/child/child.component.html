@@ -1,0 +1,10 @@
+<div class="child">
+  <h2>
+    子组件
+  </h2>
+  <div>
+    <div>问候语：{{greeting}} | -- ng 的 <b>变更检测机制</b> 捕获了组件中每个属性的变化 </div>
+    <div>姓名：&nbsp;&nbsp;&nbsp;{{user.name}} | -- ng 的 <b>变更检测机制</b> 捕获了组件中每个属性的变化 </div>
+    <div>消息：&nbsp;&nbsp;&nbsp;<input type="text" [(ngModel)]="message"> -- <b>自身属性</b> 不调用 OnChanges 事件 </div>
+  </div>
+</div>

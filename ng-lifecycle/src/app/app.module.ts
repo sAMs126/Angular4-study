@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LifeComponent } from './component/life/life.component';
+import { ChildComponent } from './component/child/child.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LifeComponent
+    LifeComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
