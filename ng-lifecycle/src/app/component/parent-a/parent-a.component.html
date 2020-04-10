@@ -1,0 +1,9 @@
+<app-child-b #child1></app-child-b>
+<app-child-b #child2></app-child-b>
+<button (click)='child2.greeting("Jerry")'>调用 child2 的 greeting 方法</button>
+
+<hr>
+<div>
+  组件视图初始化后 - 改变组件属性
+  {{msg}}
+</div>
