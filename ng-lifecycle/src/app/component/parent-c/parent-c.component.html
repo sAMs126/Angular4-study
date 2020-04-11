@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <h2>父组件 - work</h2>
+  <div>此 div 定义在父组件中</div>
+  <!-- 属性绑定 innerHTML 只能显示当前组件属性 -->
+  <div [innerHTML]="divContent"></div>
+  <hr>
+  <app-child-d>
+    <!-- 此处的 class 用来指示子组件投影 -->
+    <div class="heade">此 div 通过父组件投影到子组件中，父组件属性绑定：<span style="color: powderblue">{{title}}</span></div>
+    <div class="footer">此 div 通过父组件投影到子组件中</div>
+  </app-child-d>
+</div>

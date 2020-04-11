@@ -8,6 +8,8 @@ import { LifeComponent } from './component/life/life.component';
 import { ChildComponent } from './component/child/child.component';
 import { ChildBComponent } from './component/child-b/child-b.component';
 import { ParentAComponent } from './component/parent-a/parent-a.component';
+import { ParentCComponent } from './component/parent-c/parent-c.component';
+import { ChildDComponent } from './component/child-d/child-d.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { ParentAComponent } from './component/parent-a/parent-a.component';
     LifeComponent,
     ChildComponent,
     ChildBComponent,
-    ParentAComponent
+    ParentAComponent,
+    ParentCComponent,
+    ChildDComponent
   ],
   imports: [
     BrowserModule,
