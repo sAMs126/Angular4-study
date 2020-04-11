@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, AfterContentChecked } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ChildBComponent } from '../child-b/child-b.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { ChildBComponent } from '../child-b/child-b.component';
   templateUrl: './parent-a.component.html',
   styleUrls: ['./parent-a.component.css']
 })
-export class ParentAComponent implements OnInit, AfterViewInit, AfterContentChecked {
+export class ParentAComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @ViewChild("child1")
   child1: ChildBComponent
@@ -25,7 +25,7 @@ export class ParentAComponent implements OnInit, AfterViewInit, AfterContentChec
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     console.log("ngAfterViewInit \t\t父组件视图 %c 初始化 \t\t%c 完毕", 'color: blue;', '');
-    
+
     // 在视图初始化后修改组件属性
     // ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'undefined'. Current value: 'hello'.
     // this.msg = "hello";
@@ -35,9 +35,9 @@ export class ParentAComponent implements OnInit, AfterViewInit, AfterContentChec
     }, 0);
   }
 
-  ngAfterContentChecked(): void {
-    //Called after every check of the component's or directive's content.
-    console.log("ngAfterContentChecked \t父组件视图 %c 变更检测 \t\t%c 完毕", 'color: green;', '');
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    console.log("ngAfterViewChecked \t\t父组件视图 %c 变更检测 \t\t%c 完毕", 'color: green;', '');
   }
 
 }
