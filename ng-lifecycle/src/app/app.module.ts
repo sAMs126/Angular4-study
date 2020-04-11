@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LifeComponent } from './component/life/life.component';
@@ -13,6 +14,11 @@ import { ChildDComponent } from './component/child-d/child-d.component';
 import { ChildEComponent } from './component/child-e/child-e.component';
 import { ParentEComponent } from './component/parent-e/parent-e.component';
 import { ChildRouterComponent } from './component/child-router/child-router.component';
+
+const routes: Routes = [
+  { path: '', component: ChildEComponent },
+  { path: 'child2', component: ChildRouterComponent }
+];
 
 @NgModule({
   declarations: [
@@ -30,7 +36,8 @@ import { ChildRouterComponent } from './component/child-router/child-router.comp
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
