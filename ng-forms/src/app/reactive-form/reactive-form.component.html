@@ -1,0 +1,30 @@
+<h1>Reactive Form works!</h1>
+<hr />
+
+<div class="container">
+  <form [formGroup]="formModel" (ngSubmit)="onSubmit()">
+    <div formGroupName="dateRange">
+      <div class="form-group">
+        <label>开始日期</label>
+        <input type="date" class="form-control" formControlName="from" />
+      </div>
+      <div class="form-group">
+        <label>截止日期</label>
+        <input type="date" class="form-control" formControlName="to" />
+      </div>
+    </div>
+
+    <div>
+      <label>邮箱</label>
+      <ul style="list-style: decimal;" formArrayName="emails">
+        <li *ngFor="let item of emails.controls; let i = index" class="form-group">
+          <input type="email" [formControlName]='i' class="form-control"/>
+        </li>
+      </ul>
+      <button type="button" class="btn btn-default" (click)="addEmail()">添加邮箱</button>
+    </div>
+    <hr />
+
+    <button type="submit" class="btn btn-success">提交</button>
+  </form>
+</div>
