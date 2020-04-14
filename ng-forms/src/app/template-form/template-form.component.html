@@ -4,30 +4,31 @@
   <form #userForm='ngForm' (ngSubmit)='onSubmit(userForm.value)'>
     <div class="form-group">
       <label for="name">用户名</label>
-      <input #username='ngModel' ngModel name="username" type="text" class="form-control" required>
+      <input ngModel name="username" type="text" class="form-control" required>
     </div>
 
-    <div ngModelGroup='userInfo'>
-      <div class="form-group">
-        <label for="alterEgo">手机号</label>
-        <input ngModel name="phone" type="text" class="form-control">
-      </div>
+    <div class="form-group">
+      <label for="alterEgo">手机号</label>
+      <input ngModel name="phone" type="number" class="form-control">
+    </div>
 
+    <div class="form-group">
+      <label for="area">所在地</label>
+      <input ngModel name="area" type="text" class="form-control">
+    </div>
+
+    <div ngModelGroup='pwdGroup'>
       <div class="form-group">
-        <label for="area">所在地</label>
-        <input ngModel name="area" type="text" class="form-control">
+        <label for="password">密码</label>
+        <input ngModel name="password" type="password" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="pconfirm">确认密码</label>
+        <input ngModel name="pconfirm" type="password" class="form-control">
       </div>
     </div>
 
     <button type="submit" class="btn btn-success">提交</button>
 
   </form>
-</div>
-<hr>
-<div>
-  {{userForm.value | json}}
-</div>
-<hr>
-<div>
-  username: {{username.value}}
 </div>
