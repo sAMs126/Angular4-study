@@ -13,5 +13,5 @@ export function pwdEqualValidator(gruop: FormGroup): any {
   let pconfirm: FormControl = gruop.get("pconfirm") as FormControl;
   let valid = password.value === pconfirm.value;
   console.log("password 的校验结果：" + valid);
-  return valid ? null : { equal: true };
+  return valid ? null : { equal: { desc: "两次密码不匹配" } };
 }
