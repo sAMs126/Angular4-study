@@ -6,22 +6,32 @@
     <div class="form-group">
       <label>用户名</label>
       <input type="text" class="form-control" formControlName="username" />
-      <span class="help-block has-error" [ngStyle]="{
+      <div [hidden]="formModel.get('username').valid || formModel.get('username').untouched">
+        <span class="help-block has-error" [ngStyle]="{
           display: formModel.hasError('required', 'username') ? 'block' : 'none'
         }">用户名必填</span>
-      <span class="help-block has-error" [ngStyle]="{
+        <span class="help-block has-error" [ngStyle]="{
           display: formModel.hasError('minlength', 'username')
             ? 'block'
             : 'none'
         }">用户名最小长度6位</span>
+      </div>
     </div>
 
     <div class="form-group">
       <label>手机号</label>
       <input type="tel" class="form-control" formControlName="phone" />
-      <span class="help-block" [ngStyle]="{
+      <div [hidden]="formModel.get('phone').valid || formModel.get('phone').pristine">
+        <span class="help-block" [ngStyle]="{
           display: formModel.hasError('phone', 'phone') ? 'block' : 'none'
         }">请正确填写手机号</span>
+        <span class="help-block" [ngStyle]="{
+          display: formModel.hasError('phoneReg', 'phone') ? 'block' : 'none'
+        }">{{formModel.getError('phoneReg', 'phone')?.desc}}</span>
+      </div>
+      <div [hidden]="!formModel.get('phone').pending">
+        <span class="help-block">正在验证手机号...</span>
+      </div>
     </div>
 
     <div class="form-group">

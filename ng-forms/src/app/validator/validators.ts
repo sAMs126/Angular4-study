@@ -11,10 +11,10 @@ export function phoneValidator(control: FormControl): any {
 
 // 自定义异步校验器
 export function phoneAsyncValidator(control: FormControl): any {
-  var reg = /^(13[0-2]{1}|14[5|7]|(15[0-2]{1})|(18[0-2]{1}))+\d{8}$/;
+  var reg = /^(13[0-2]{1})+\d{8}$/;
   let valid = reg.test(control.value);
   console.log("phone 的异步校验结果：" + valid);
-  return Observable.of(valid ? null : { phone: true }).delay(3000);
+  return Observable.of(valid ? null : { phoneReg: { desc: '手机号已被注册' } }).delay(1000);
 }
 
 export function pwdEqualValidator(gruop: FormGroup): any {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { phoneValidator, pwdEqualValidator, phoneAsyncValidator } from "app/validator/validators";
+import { pwdEqualValidator, phoneAsyncValidator, phoneValidator } from "app/validator/validators";
 
 @Component({
   selector: "app-reactive-regist-form",
