@@ -20,7 +20,13 @@ export function phoneAsyncValidator(control: FormControl): any {
 export function pwdEqualValidator(gruop: FormGroup): any {
   let password: FormControl = gruop.get("password") as FormControl;
   let pconfirm: FormControl = gruop.get("pconfirm") as FormControl;
-  let valid = password.value === pconfirm.value;
-  console.log("password 的校验结果：" + valid);
-  return valid ? null : { equal: { desc: "两次密码不匹配" } };
+  if (password && pconfirm) {
+    let valid = password.value === pconfirm.value;
+    console.log("password 的校验结果：" + valid);
+    return valid ? null : { equal: { desc: "两次密码不匹配" } };
+  } else {
+    return null;
+  }
+
+
 }

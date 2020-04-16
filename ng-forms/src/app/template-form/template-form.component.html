@@ -1,15 +1,28 @@
 <div class="container">
   <h1>信息统计</h1>
   <hr>
-  <form #userForm='ngForm' (ngSubmit)='onSubmit(userForm.value)'>
+  <form #userForm='ngForm' (ngSubmit)='onSubmit(userForm.value)' novalidate>
     <div class="form-group">
       <label for="name">用户名</label>
-      <input ngModel name="username" type="text" class="form-control" required>
+      <input ngModel name="username" type="text" class="form-control" required minlength='6' (input)="phoneInput(userForm)">
+      <div [hidden]="phoneValid || phoneUntouched">
+        <span class="help-block has-error" [ngStyle]="{
+          display: userForm.form.hasError('required', 'username') ? 'block' : 'none'
+        }">用户名必填</span>
+        <span class="help-block has-error" [ngStyle]="{
+          display: userForm.form.hasError('minlength', 'username')
+            ? 'block'
+            : 'none'
+        }">用户名最小长度6位</span>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="alterEgo">手机号</label>
-      <input ngModel name="phone" type="number" class="form-control">
+      <input ngModel name="phone" type="number" class="form-control" appPhoneNumber>
+      <span class="help-block" [ngStyle]="{
+        display: userForm.form.hasError('phone', 'phone') ? 'block' : 'none'
+      }">请正确填写手机号</span>
     </div>
 
     <div class="form-group">
@@ -17,15 +30,23 @@
       <input ngModel name="area" type="text" class="form-control">
     </div>
 
-    <div ngModelGroup='pwdGroup'>
+    <div ngModelGroup='pwdGroup' appPwdEqual>
       <div class="form-group">
         <label for="password">密码</label>
-        <input ngModel name="password" type="password" class="form-control">
+        <input ngModel minlength='6' name="password" type="password" class="form-control">
+        <span class="help-block" [ngStyle]="{
+          display: userForm.form.hasError('minlength', ['pwdGroup', 'password'])
+            ? 'block'
+            : 'none'
+        }">密码最小长度6位</span>
       </div>
       <div class="form-group">
         <label for="pconfirm">确认密码</label>
         <input ngModel name="pconfirm" type="password" class="form-control">
       </div>
+      <span class="help-block" [ngStyle]="{
+        display: userForm.form.hasError('equal', 'pwdGroup') ? 'block' : 'none'
+      }">{{userForm.form.getError('equal', ['pwdGroup'])?.desc}}</span>
     </div>
 
     <button type="submit" class="btn btn-success">提交</button>
