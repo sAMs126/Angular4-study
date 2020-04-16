@@ -18,7 +18,7 @@ export class ReactiveRegistFormComponent implements OnInit {
       area: [""],
       pwdGroup: this.fb.group(
         {
-          password: [""],
+          password: ["", Validators.minLength(6)],
           pconfirm: [""]
         },
         { validator: pwdEqualValidator }
@@ -29,10 +29,10 @@ export class ReactiveRegistFormComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit() {
-    // let isValid = this.formModel.get("username").valid;
-    // console.log("username 的校验结果：" + isValid);
-    // let errors = this.formModel.get("username").errors;
-    // console.log("username 的错误信息：\n" + JSON.stringify(errors, null, 2));
+    let isValid = this.formModel.get("username").valid;
+    console.log("username 的校验结果：" + isValid);
+    let errors = this.formModel.get("username").errors;
+    console.log("username 的错误信息：\n" + JSON.stringify(errors, null, 2));
     if (this.formModel.valid) {
       console.log(this.formModel.value);
     }

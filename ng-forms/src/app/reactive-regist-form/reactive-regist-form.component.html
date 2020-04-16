@@ -1,32 +1,51 @@
 <div class="container">
   <h1>reactive-regist-form works!</h1>
   <h1>信息统计</h1>
-  <hr>
+  <hr />
   <form [formGroup]="formModel" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>用户名</label>
-      <input type="text" class="form-control" required formControlName="username">
+      <input type="text" class="form-control" formControlName="username" />
+      <span class="help-block has-error" [ngStyle]="{
+          display: formModel.hasError('required', 'username') ? 'block' : 'none'
+        }">用户名必填</span>
+      <span class="help-block has-error" [ngStyle]="{
+          display: formModel.hasError('minlength', 'username')
+            ? 'block'
+            : 'none'
+        }">用户名最小长度6位</span>
     </div>
 
     <div class="form-group">
       <label>手机号</label>
-      <input type="number" class="form-control" formControlName="phone">
+      <input type="tel" class="form-control" formControlName="phone" />
+      <span class="help-block" [ngStyle]="{
+          display: formModel.hasError('phone', 'phone') ? 'block' : 'none'
+        }">请正确填写手机号</span>
     </div>
 
     <div class="form-group">
       <label>所在地</label>
-      <input type="text" class="form-control" formControlName="area">
+      <input type="text" class="form-control" formControlName="area" />
     </div>
 
-    <div formGroupName='pwdGroup'>
+    <div formGroupName="pwdGroup">
       <div class="form-group">
         <label>密码</label>
-        <input type="password" class="form-control" required formControlName="password">
+        <input type="password" class="form-control" formControlName="password" />
+        <span class="help-block" [ngStyle]="{
+            display: formModel.hasError('minlength', ['pwdGroup', 'password'])
+              ? 'block'
+              : 'none'
+          }">密码最小长度6位</span>
       </div>
       <div class="form-group">
         <label>确认密码</label>
-        <input type="password" class="form-control" required formControlName="pconfirm">
+        <input type="password" class="form-control" formControlName="pconfirm" />
       </div>
+      <span class="help-block" [ngStyle]="{
+          display: formModel.hasError('equal', 'pwdGroup') ? 'block' : 'none'
+        }">两次密码不匹配</span>
     </div>
 
     <button type="submit" class="btn btn-success">提交</button>
