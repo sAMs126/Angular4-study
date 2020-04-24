@@ -34,10 +34,10 @@ var products = [
 app.get('/', function (req, res) {
     res.end("Hello Express");
 });
-app.get('/products', function (req, res) {
+app.get('/api/products', function (req, res) {
     res.json(products);
 });
-app.get('/products/:id', function (req, res) {
+app.get('/api/products/:id', function (req, res) {
     var id = Number(req.params.id);
     res.json(products.find(function (product) { return product.id === id; }));
 });

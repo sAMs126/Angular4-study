@@ -36,11 +36,11 @@ app.get('/', (req, res) => {
   res.end("Hello Express");
 })
 
-app.get('/products', (req, res) => {
+app.get('/api/products', (req, res) => {
   res.json(products);
 })
 
-app.get('/products/:id', (req, res) => {
+app.get('/api/products/:id', (req, res) => {
   let id: number = Number(req.params.id);
   res.json(products.find(
     (product) => product.id === id)
