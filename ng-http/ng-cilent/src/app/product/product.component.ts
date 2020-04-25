@@ -10,15 +10,17 @@ import { Http } from "@angular/http";
   styleUrls: ["./product.component.css"]
 })
 export class ProductComponent implements OnInit {
-  dataSource: Observable<any>;
+  // dataSource: Observable<any>;
 
-  products: Array<any> = [];
+  // products: Array<any> = [];
+  products: Observable<any>;
 
   constructor (private http: HttpClient) {
-    this.dataSource = this.http.get("/api/products");
+    // this.dataSource = this.http.get("/api/products");
+    this.products = this.http.get("/api/products");
   }
 
   ngOnInit() {
-    this.dataSource.subscribe((data: Array<any>) => this.products = data);
+    // this.dataSource.subscribe((data: Array<any>) => this.products = data);
   }
 }

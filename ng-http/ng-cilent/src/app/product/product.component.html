@@ -2,7 +2,7 @@
   product info!
 </div>
 <ul>
-  <li *ngFor="let product of products">
+  <li *ngFor="let product of products | async">
     {{product.title}}
   </li>
 </ul>
