@@ -1,8 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import "rxjs/Rx";
 import { Http } from "@angular/http";
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 
 @Component({
   selector: "app-product",
@@ -17,7 +24,7 @@ export class ProductComponent implements OnInit {
 
   constructor (private http: HttpClient) {
     // this.dataSource = this.http.get("/api/products");
-    this.products = this.http.get("/api/products");
+    this.products = this.http.get("/api/products", httpOptions);
   }
 
   ngOnInit() {
