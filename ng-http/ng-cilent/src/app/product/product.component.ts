@@ -19,6 +19,6 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.subscribe((data: any) => this.products = data);
+    this.dataSource.subscribe((data: Array<any>) => this.products = data);
   }
 }
