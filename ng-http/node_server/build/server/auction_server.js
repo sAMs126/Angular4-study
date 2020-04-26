@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var product_1 = require("../class/product");
+// websocket
+var ws_1 = require("ws");
 var app = express();
 var products = [
     new product_1.Product(1, "第一个商品", 1.78, 1, "这是商品的描述，第一个商品", [
@@ -44,4 +46,20 @@ app.get('/api/products/:id', function (req, res) {
 var server = app.listen(8000, 'localhost', function () {
     console.log("node 服务已启动");
 });
+// WbeSocket
+var wsServer = new ws_1.Server({ port: 8085 });
+wsServer.on("connection", function (webSocket) {
+    webSocket.send("这条消息是服务器主动推送。");
+    webSocket.on("message", function (msg) {
+        console.log("接收到的消息：" + msg);
+    });
+});
+// 产生连接就推送消息
+setInterval(function () {
+    if (wsServer.clients) {
+        wsServer.clients.forEach(function (client) {
+            client.send("这是定时推送。");
+        });
+    }
+}, 2000);
 //# sourceMappingURL=auction_server.js.map

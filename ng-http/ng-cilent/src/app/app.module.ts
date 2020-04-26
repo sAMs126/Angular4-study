@@ -6,11 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { HttpClientModule } from '@angular/common/http';
+import { WebSocketComponent } from './web-socket/web-socket.component';
+import { WebSocketService } from './shared/web-socket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    WebSocketComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     HttpModule
   ],
-  providers: [],
+  providers: [WebSocketService],
   bootstrap: [AppComponent],
 
 })

@@ -1,5 +1,7 @@
 import * as express from 'express';
 import { Product } from '../class/product';
+// websocket
+import { Server } from "ws";
 
 const app = express();
 
@@ -50,3 +52,21 @@ app.get('/api/products/:id', (req, res) => {
 const server = app.listen(8000, 'localhost', () => {
   console.log("node 服务已启动");
 })
+
+// WbeSocket
+const wsServer = new Server({ port: 8085 });
+wsServer.on("connection", (webSocket) => {
+  webSocket.send("这条消息是服务器主动推送。");
+  webSocket.on("message", msg => {
+    console.log("接收到的消息：" + msg);
+  });
+})
+
+// 产生连接就推送消息
+setInterval(() => {
+  if (wsServer.clients) {
+    wsServer.clients.forEach(client => {
+      client.send("这是定时推送。")
+    })
+  }
+}, 2000)
