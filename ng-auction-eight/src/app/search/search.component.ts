@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'app/service/product.service';
 import { positiveNumValidator } from 'app/validator/validators';
+import { Search } from 'app/service/class/search';
 
 @Component({
   selector: 'app-search',
@@ -28,7 +29,10 @@ export class SearchComponent implements OnInit {
 
   onSubmit() {
     if (this.formModel.valid) {
-      console.log(this.formModel.value);
+      let search: Search = this.formModel.value;
+      console.log(search);
+      // 激活中间人的事件流
+      this.productService.searchEvent.emit(search);
     }
   }
 
