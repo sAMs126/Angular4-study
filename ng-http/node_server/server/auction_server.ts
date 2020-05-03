@@ -2,6 +2,7 @@ import * as express from 'express';
 import { Product } from '../class/product';
 // websocket
 import { Server } from "ws";
+import { Comment } from '../class/comment';
 
 const app = express();
 
@@ -34,6 +35,18 @@ const products: Product[] = [
   ])
 ];
 
+const comments: Comment[] = [
+  new Comment(1, 1, "2018/2/8 16:33:27", 4, "张三", "还行！"),
+  new Comment(1, 1, "2019/1/5 11:03:19", 3, "张三", "还行！"),
+  new Comment(1, 2, "2018/2/8 16:33:27", 2, "张三", "还行！"),
+  new Comment(1, 2, "2019/1/5 11:03:19", 1, "张三", "还行！"),
+  new Comment(1, 3, "2018/2/8 16:33:27", 2, "张三", "还行！"),
+  new Comment(1, 3, "2019/1/5 11:03:19", 3, "张三", "还行！"),
+  new Comment(1, 4, "2018/2/8 16:33:27", 4, "张三", "还行！"),
+  new Comment(1, 5, "2019/1/5 11:03:19", 5, "张三", "还行！"),
+  new Comment(1, 6, "2018/2/8 16:33:27", 1, "张三", "还行！"),
+];
+
 app.get('/', (req, res) => {
   res.end("Hello Express");
 })
@@ -45,7 +58,14 @@ app.get('/api/products', (req, res) => {
 app.get('/api/products/:id', (req, res) => {
   let id: number = Number(req.params.id);
   res.json(products.find(
-    (product) => product.id === id)
+    (product: Product) => product.id === id)
+  );
+})
+
+app.get('/api/products/:id/comments', (req, res) => {
+  let id: number = Number(req.params.id);
+  res.json(comments.find(
+    (comment: Comment) => comment.productId == id)
   );
 })
 
