@@ -3,13 +3,13 @@ import { Product } from '../class/product';
 // websocket
 import { Server } from "ws";
 import { Comment } from '../class/comment';
+import QueryString = require('qs');
 
 const app = express();
 
 const products: Product[] = [
   new Product(1, "第一个商品", 1.78, 1, "这是商品的描述，第一个商品", [
     "电子产品",
-    "硬件设备",
     "外设产品"
   ]),
   new Product(2, "第二个商品", 2.78, 2.5, "这是商品的描述，第二个商品", [
@@ -36,15 +36,15 @@ const products: Product[] = [
 ];
 
 const comments: Comment[] = [
-  new Comment(1, 1, "2018/2/8 16:33:27", 4, "张三", "还行！"),
-  new Comment(1, 1, "2019/1/5 11:03:19", 3, "张三", "还行！"),
-  new Comment(1, 2, "2018/2/8 16:33:27", 2, "张三", "还行！"),
-  new Comment(1, 2, "2019/1/5 11:03:19", 1, "张三", "还行！"),
-  new Comment(1, 3, "2018/2/8 16:33:27", 2, "张三", "还行！"),
-  new Comment(1, 3, "2019/1/5 11:03:19", 3, "张三", "还行！"),
-  new Comment(1, 4, "2018/2/8 16:33:27", 4, "张三", "还行！"),
-  new Comment(1, 5, "2019/1/5 11:03:19", 5, "张三", "还行！"),
-  new Comment(1, 6, "2018/2/8 16:33:27", 1, "张三", "还行！"),
+  new Comment(1, 1, "2018/2/8 16:33:27", 4, "还行！", "张三"),
+  new Comment(2, 1, "2019/1/5 11:03:19", 3, "还行！", "张三"),
+  new Comment(3, 2, "2018/2/8 16:33:27", 2, "还行！", "张三"),
+  new Comment(4, 2, "2019/1/5 11:03:19", 1, "还行！", "张三"),
+  new Comment(5, 3, "2018/2/8 16:33:27", 2, "还行！", "张三"),
+  new Comment(6, 3, "2019/1/5 11:03:19", 3, "还行！", "张三"),
+  new Comment(7, 4, "2018/2/8 16:33:27", 4, "还行！", "张三"),
+  new Comment(8, 5, "2019/1/5 11:03:19", 5, "还行！", "张三"),
+  new Comment(9, 6, "2018/2/8 16:33:27", 1, "还行！", "张三"),
 ];
 
 app.get('/', (req, res) => {
@@ -52,7 +52,23 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/products', (req, res) => {
-  res.json(products);
+  let result = products;
+  let params = req.query;
+  console.log(params);
+  if (null != params.title && '' != params.title) {
+    result = result.filter(
+      (product: Product) => product.title.indexOf(String(params.title)) !== -1);
+
+  }
+  if (params.price && result.length > 0) {
+    result = result.filter(
+      (product: Product) => product.price <= Number(params.price));
+  }
+  if (null != params.categ && params.categ !== '-1' && 0 <= result.length) {
+    result = result.filter(
+      (product: Product) => product.categories.indexOf(String(params.categ)) !== -1);
+  }
+  res.json(result);
 })
 
 app.get('/api/products/:id', (req, res) => {
@@ -64,7 +80,7 @@ app.get('/api/products/:id', (req, res) => {
 
 app.get('/api/products/:id/comments', (req, res) => {
   let id: number = Number(req.params.id);
-  res.json(comments.find(
+  res.json(comments.filter(
     (comment: Comment) => comment.productId == id)
   );
 })
