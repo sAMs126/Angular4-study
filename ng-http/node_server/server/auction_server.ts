@@ -4,6 +4,7 @@ import { Product } from '../class/product';
 import { Server } from "ws";
 import { Comment } from '../class/comment';
 import QueryString = require('qs');
+import WebSocket = require('ws');
 
 const app = express();
 
@@ -89,20 +90,49 @@ const server = app.listen(8000, 'localhost', () => {
   console.log("node 服务已启动");
 })
 
+const subscriptions = new Map<WebSocket, number[]>();
+
 // WbeSocket
 const wsServer = new Server({ port: 8085 });
 wsServer.on("connection", (webSocket) => {
-  webSocket.send("这条消息是服务器主动推送。");
+  // webSocket.send("这条消息是服务器主动推送。");
   webSocket.on("message", msg => {
-    console.log("接收到的消息：" + msg);
+    // console.log("接收到的消息：" + msg);
+    let msgObject = JSON.parse(String(msg));
+    let productId = subscriptions.get(webSocket) || [];
+    // 追加推送 id
+    subscriptions.set(webSocket, [...productId, msgObject.productId])
   });
 })
 
+const currentBids = new Map<number, number>();
+
 // 产生连接就推送消息
+// setInterval(() => {
+//   if (wsServer.clients) {
+//     wsServer.clients.forEach(client => {
+//       client.send("这是定时推送。")
+//     })
+//   }
+// }, 2000)
+
 setInterval(() => {
-  if (wsServer.clients) {
-    wsServer.clients.forEach(client => {
-      client.send("这是定时推送。")
-    })
-  }
+  products.forEach(p => {
+    let currentBid = currentBids.get(p.id) || p.price;
+    let newBid = currentBid + Math.random() * 5;
+    currentBids.set(p.id, newBid);
+  });
+  subscriptions.forEach((productIds: number[], ws: WebSocket) => {
+    if (1 === ws.readyState) {
+      let newBids = productIds.map(
+        pid => ({
+          productId: pid,
+          bid: currentBids.get(pid)
+        })
+      )
+      ws.send(JSON.stringify(newBids));
+    } else {
+      subscriptions.delete(ws);
+    }
+  });
 }, 2000)

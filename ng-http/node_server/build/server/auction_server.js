@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var product_1 = require("../class/product");
@@ -73,20 +80,45 @@ app.get('/api/products/:id/comments', function (req, res) {
 var server = app.listen(8000, 'localhost', function () {
     console.log("node 服务已启动");
 });
+var subscriptions = new Map();
 // WbeSocket
 var wsServer = new ws_1.Server({ port: 8085 });
 wsServer.on("connection", function (webSocket) {
-    webSocket.send("这条消息是服务器主动推送。");
+    // webSocket.send("这条消息是服务器主动推送。");
     webSocket.on("message", function (msg) {
-        console.log("接收到的消息：" + msg);
+        // console.log("接收到的消息：" + msg);
+        var msgObject = JSON.parse(String(msg));
+        var productId = subscriptions.get(webSocket) || [];
+        // 追加推送 id
+        subscriptions.set(webSocket, __spreadArrays(productId, [msgObject.productId]));
     });
 });
+var currentBids = new Map();
 // 产生连接就推送消息
+// setInterval(() => {
+//   if (wsServer.clients) {
+//     wsServer.clients.forEach(client => {
+//       client.send("这是定时推送。")
+//     })
+//   }
+// }, 2000)
 setInterval(function () {
-    if (wsServer.clients) {
-        wsServer.clients.forEach(function (client) {
-            client.send("这是定时推送。");
-        });
-    }
+    products.forEach(function (p) {
+        var currentBid = currentBids.get(p.id) || p.price;
+        var newBid = currentBid + Math.random() * 5;
+        currentBids.set(p.id, newBid);
+    });
+    subscriptions.forEach(function (productIds, ws) {
+        if (1 === ws.readyState) {
+            var newBids = productIds.map(function (pid) { return ({
+                productId: pid,
+                bid: currentBids.get(pid)
+            }); });
+            ws.send(JSON.stringify(newBids));
+        }
+        else {
+            subscriptions.delete(ws);
+        }
+    });
 }, 2000);
 //# sourceMappingURL=auction_server.js.map
